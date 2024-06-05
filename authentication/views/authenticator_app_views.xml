@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="authenticator_app_view_tree" model="ir.ui.view">
+        <field name="name">authenticator.app.tree</field>
+        <field name="model">authenticator.app</field>
+        <field name="arch" type="xml">
+            <tree string="Authenticator App">
+                <field name="customer_id"/>
+                <field name="client_url"/>
+                <field name="client_id"/>
+                <field name="client_secret"/>
+                <!-- <field name="duration"/> -->
+                <field name="validity_days"/>
+                <field name="key" readonly="1"/>
+                <field name="start_date" readonly="1" />
+                <field name="end_date" readonly="1" />
+                <field name="stage"/>
+                <field name="status_display"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="authenticator_app_view_form" model="ir.ui.view">
+        <field name="name">authenticator.app.form</field>
+        <field name="model">authenticator.app</field>
+        <field name="arch" type="xml">
+            <form string="Authenticator App">
+                    <header>
+                        <field name="stage" widget="statusbar" statusbar_visible="draft,submitted"/>
+                        <button name="action_update_client_login" string="Update in Client Login" type="object" class="oe_highlight"/>
+                        <button name="action_generate_new_key" string="Generate New Key And Submit" type="object" class="oe_highlight" />
+                    </header>
+                <sheet>
+                    <div>
+                        <field name="status_display" invisible="1"/>
+                        <widget name="web_ribbon" title="Draft" bg_color="bg-primary" attrs="{'invisible': [('stage', '=', 'draft')]}"/>
+                        <widget name="web_ribbon" title="Active" bg_color="bg-success" attrs="{'invisible': [('status_display', '!=', 'active')]}"/>
+                        <widget name="web_ribbon" title="Expired" bg_color="bg-danger" attrs="{'invisible': [('status_display', '!=', 'expired')]}"/>
+                    </div>
+                    <group>
+                        <field name="customer_id"/>
+                        <field name="client_url"/>
+                        <field name="client_id"/>
+                        <field name="client_secret"/>
+                        <!-- <field name="duration"/> -->
+                        <field name="validity_days"/>
+                        <field name="key" readonly="1"/>
+                        <field name="start_date" readonly="1" />
+                        <field name="end_date" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="authenticator_app_action" model="ir.actions.act_window">
+        <field name="name">Authenticator Apps</field>
+        <field name="res_model">authenticator.app</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="authenticator_app_menu" name="Authenticator App" action="authenticator_app_action" sequence="10" />
+</odoo>

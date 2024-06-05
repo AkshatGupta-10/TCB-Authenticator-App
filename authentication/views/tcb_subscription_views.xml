@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="tcb_subscription_view_tree" model="ir.ui.view">
+        <field name="name">tcb.subscription.tree</field>
+        <field name="model">tcb.subscription</field>
+        <field name="arch" type="xml">
+            <tree string="TCB Subscription">
+                <field name="client_id"/>
+                <field name="client_secret"/>
+                <field name="duration"/>
+                <field name="validity"/>
+                <field name="key" readonly="1"/>
+                <field name="start_date" readonly="1" />
+                <field name="end_date" readonly="1" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="tcb_subscription_view_form" model="ir.ui.view">
+        <field name="name">tcb.subscription.form</field>
+        <field name="model">tcb.subscription</field>
+        <field name="arch" type="xml">
+            <form string="TCB Subscription">
+                    <header>
+                        <button name="action_update_client_login" string="Update in Client Login" type="object" class="oe_highlight"/>
+                        <button name="action_generate_new_key" string="Generate New Key And Submit" type="object" class="oe_highlight" />
+                    </header>
+                <sheet>
+                    <group>
+                        <field name="client_id"/>
+                        <field name="client_secret"/>
+                        <field name="duration"/>
+                        <field name="validity"/>
+                        <field name="key" readonly="1"/>
+                        <field name="start_date" readonly="1" />
+                        <field name="end_date" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tcb_subscription_action" model="ir.actions.act_window">
+        <field name="name">TCB Subscription</field>
+        <field name="res_model">tcb.subscription</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="tcb_subscription_menu" name="TCB Subscription" action="tcb_subscription_action" sequence="10" />
+</odoo>
